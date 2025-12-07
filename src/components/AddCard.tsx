@@ -91,7 +91,7 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
       return
     }
 
-    addCard(name, imageBase64, mnemonic)
+    addCard(name, imageBase64, mnemonic, imageBase64)
     setName('')
     setImageBase64(null)
     setImagePreview(null)
