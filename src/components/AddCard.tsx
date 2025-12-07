@@ -97,6 +97,9 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
     setImagePreview(null)
     setMnemonic('')
     setError('')
+    
+    // Show success message instead of auto-switching
+    alert(`✅ ${name} added! Ready to review?`)
     onCardAdded?.()
   }
 
