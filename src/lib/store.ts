@@ -22,6 +22,7 @@ interface CardStore {
   cards: Card[]
   addCard: (
     name: string,
+    description: string,
     imageUrl: string,
     mnemonic: string,
     imageBase64?: string
