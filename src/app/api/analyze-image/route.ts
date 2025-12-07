@@ -13,6 +13,8 @@ export async function POST(request: NextRequest) {
     }
 
     const apiKey = process.env.ANTHROPIC_API_KEY
+console.log('API Key exists:', !!apiKey)
+console.log('API Key length:', apiKey?.length)
     if (!apiKey) {
       console.error('ANTHROPIC_API_KEY is not set')
       return NextResponse.json(
