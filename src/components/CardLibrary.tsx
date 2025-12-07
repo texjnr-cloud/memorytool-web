@@ -104,11 +104,12 @@ export default function CardLibrary() {
                 <p className={styles.detailStatValue}>
                   {selectedCard.sm2.interval} days
                 </p>
-<div className={styles.detailStatItem}>
-  <p className={styles.detailStatLabel}>Mnemonic Helpful</p>
-  <p className={styles.detailStatValue}>
-    {selectedCard.reviews.filter(r => r.mnemonicHelpful).length} / {selectedCard.reviews.length}
-  </p>
+              </div>
+              <div className={styles.detailStatItem}>
+                <p className={styles.detailStatLabel}>Mnemonic Helpful</p>
+                <p className={styles.detailStatValue}>
+                  {selectedCard.reviews.filter(r => r.mnemonicHelpful).length} / {selectedCard.reviews.length}
+                </p>
               </div>
               <div className={styles.detailStatItem}>
                 <p className={styles.detailStatLabel}>Ease</p>
