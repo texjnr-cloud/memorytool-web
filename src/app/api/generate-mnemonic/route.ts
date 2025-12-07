@@ -23,17 +23,26 @@ export async function POST(request: NextRequest) {
 
     const client = new Anthropic({ apiKey })
 
-   const prompt = `Generate a SHORT, memorable mnemonic to remember the name "${name}".
+  const prompt = `Create a SHORT memory hook for the name "${name}".
 ${
   imageDescription
-    ? `Appearance: ${imageDescription}`
+    ? `They have: ${imageDescription}`
     : ''
 }
 
-Keep it to ONE SHORT SENTENCE (under 15 words). Make it quirky and visual.
-Example: "Sarah in a safari hat" or "Mike with a microphone"
+RULES:
+- Maximum 6 words
+- Use ONE exaggerated or unusual detail
+- Make it visual and simple
+- Connect the name to ONE appearance detail
+- Make it silly/funny if possible
 
-Just the mnemonic, nothing else.`
+Examples:
+"Sarah with the silver shoes"
+"Mike has a MEGA mustache"
+"Blake is BRIGHT blue"
+
+Just respond with the mnemonic, nothing else.`
 
     const message = await client.messages.create({
       model: 'claude-opus-4-1',
