@@ -46,12 +46,12 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
 
   const handleGenerateMnemonic = async () => {
     if (!name) {
-      setError('Please enter a name')
+      setError("Please enter a name")
       return
     }
 
     if (!imageBase64) {
-      setError('Please upload a photo')
+      setError("Please upload a photo")
       return
     }
 
@@ -69,7 +69,7 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
       })
 
       if (!analyzeResponse.ok) {
-        throw new Error('Failed to analyze image')
+        throw new Error("Failed to analyze image")
       }
 
       const { description } = await analyzeResponse.json()
@@ -84,7 +84,7 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
       })
 
       if (!mnemonicResponse.ok) {
-        throw new Error('Failed to generate mnemonic')
+        throw new Error("Failed to generate mnemonic")
       }
 
       const { mnemonic: generatedMnemonic } =
@@ -94,7 +94,7 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
       setError(
         err instanceof Error
           ? err.message
-          : 'Failed to generate mnemonic'
+          : "Failed to generate mnemonic"
       )
     } finally {
       setLoading(false)
@@ -103,7 +103,7 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
 
   const handleAddCard = () => {
     if (!name || !imageBase64 || !mnemonic) {
-      setError('Please fill in all fields')
+      setError("Please fill in all fields")
       return
     }
 
@@ -143,7 +143,7 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Enter person's name"
+            placeholder="Enter person&apos;s name"
             className={styles.input}
             disabled={loading}
           />
@@ -156,7 +156,7 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
             className={styles.uploadButton}
             disabled={loading}
           >
-            {imagePreview ? '✓ Photo selected' : '+ Upload photo'}
+            {imagePreview ? "✓ Photo selected" : "+ Upload photo"}
           </button>
           <input
             ref={fileInputRef}
@@ -179,7 +179,7 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
           disabled={loading || !name || !imageBase64}
           className={styles.generateButton}
         >
-          {loading ? '⏳ Generating...' : '✨ Generate Memory Aid'}
+          {loading ? "⏳ Generating..." : "✨ Generate Memory Aid"}
         </button>
 
         {mnemonic && (
@@ -194,7 +194,7 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
           disabled={loading || !mnemonic}
           className={styles.addButton}
         >
-          {loading ? 'Adding...' : '+ Add to Cards'}
+          {loading ? "Adding..." : "+ Add to Cards"}
         </button>
       </div>
     </div>
