@@ -35,7 +35,7 @@ interface CardStore {
 export const useCardStore = create<CardStore>((set, get) => ({
   cards: [],
 
-  addCard: (name, imageUrl, mnemonic) => {
+  addCard: (name, imageUrl, mnemonic, imageBase64?: string) => {
     set((state) => ({
       cards: [
         ...state.cards,
@@ -43,6 +43,7 @@ export const useCardStore = create<CardStore>((set, get) => ({
           id: Date.now().toString(),
           name,
           imageUrl,
+          imageBase64: imageBase64 || imageUrl,
           mnemonic,
           sm2: initializeSM2(),
           createdAt: new Date(),
