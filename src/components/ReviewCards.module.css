@@ -1,0 +1,241 @@
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.progress {
+  margin-bottom: 2rem;
+}
+
+.progressText {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+
+.progressBar {
+  width: 100%;
+  height: 4px;
+  background: #334155;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #059669);
+  transition: width 0.3s ease;
+}
+
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.cardImage {
+  width: 100%;
+  height: 300px;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.noImage {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.cardContent {
+  padding: 2rem;
+}
+
+.prompt {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #f1f5f9;
+  text-align: center;
+}
+
+.hintSection {
+  margin-bottom: 2rem;
+}
+
+.hintButton {
+  width: 100%;
+  padding: 0.75rem;
+  background: #1d4ed8;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 0.75rem;
+}
+
+.hintButton:hover {
+  background: #2563eb;
+}
+
+.hintBox {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hintLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.hintName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 1rem;
+}
+
+.hintText {
+  font-size: 1rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.ratingSection {
+  text-align: center;
+}
+
+.ratingLabel {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.ratings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.ratingButton {
+  padding: 1rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #fff;
+  font-size: 0.875rem;
+}
+
+.ratingBad {
+  background: #7f1d1d;
+  border: 2px solid #dc2626;
+}
+
+.ratingBad:hover {
+  background: #991b1b;
+  border-color: #fca5a5;
+}
+
+.ratingOk {
+  background: #78350f;
+  border: 2px solid #f59e0b;
+}
+
+.ratingOk:hover {
+  background: #92400e;
+  border-color: #fcd34d;
+}
+
+.ratingGood {
+  background: #064e3b;
+  border: 2px solid #10b981;
+}
+
+.ratingGood:hover {
+  background: #047857;
+  border-color: #6ee7b7;
+}
+
+.ratingPerfect {
+  background: #1e40af;
+  border: 2px solid #3b82f6;
+}
+
+.ratingPerfect:hover {
+  background: #1e3a8a;
+  border-color: #93c5fd;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.emptyTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #f1f5f9;
+}
+
+.emptyText {
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .cardImage {
+    height: 200px;
+  }
+
+  .cardContent {
+    padding: 1.5rem;
+  }
+
+  .prompt {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .ratings {
+    grid-template-columns: 1fr;
+  }
+}
