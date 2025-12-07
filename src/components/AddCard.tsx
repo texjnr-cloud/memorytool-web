@@ -121,7 +121,21 @@ useEffect(() => {
   }
 
   return (
+    <direturn (
     <div className={styles.container}>
+      {stats.totalCards > 0 && (
+        <div className={styles.statsBar}>
+          <div className={styles.statItem}>
+            <span className={styles.statLabel}>Cards Added:</span>
+            <span className={styles.statValue}>{stats.totalCards}</span>
+          </div>
+          <div className={styles.statItem}>
+            <span className={styles.statLabel}>Reviewed Today:</span>
+            <span className={styles.statValue}>{stats.reviewedToday}</span>
+          </div>
+        </div>
+      )}
+      
       <div className={styles.card}>
         <h2 className={styles.title}>Add New Person</h2>
 
