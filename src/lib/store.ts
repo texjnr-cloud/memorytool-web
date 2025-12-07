@@ -36,7 +36,7 @@ interface CardStore {
 export const useCardStore = create<CardStore>((set, get) => ({
   cards: [],
 
-  addCard: (name, imageUrl, mnemonic, imageBase64) => {
+ addCard(name, imageBase64, mnemonic, imageBase64)
     set((state) => ({
       cards: [
         ...state.cards,
