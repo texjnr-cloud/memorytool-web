@@ -25,14 +25,30 @@ interface CardStore {
     mnemonic: string,
     imageBase64?: string
   ) => void
- reviewCard: (cardId: string, quality: number, mnemonicHelpful?: boolean) => void
-  deleteCard: (cardId: string) => void
-  getCard: (cardId: string) => Card | undefined
-  getDueCards: () => Card[]
-  getAllCards: () => Card[]
-  loadCardsFromStorage: () => void
-  saveCardsToStorage: () => void
-}
+reviewCard: (cardId, quality, mnemonicHelpful) => {
+    set((state) => ({
+      cards: state.cards.map((card) => {
+        if (card.id === cardId) {
+          const updatedCard = {
+            ...card,
+            sm2: calculateNextReview(card.sm2, quality),
+            lastReviewedAt: new Date(),
+            reviews: [
+              ...card.reviews,
+              {
+                date: new Date(),
+                quality,
+                mnemonicHelpful,
+              },
+            ],
+          }
+          return updatedCard
+        }
+        return card
+      }),
+    }))
+    get().saveCardsToStorage()
+  },
 
 export const useCardStore = create<CardStore>((set, get) => ({
   cards: [],
