@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useCardStore } from '@/lib/store'
 import styles from './AddCard.module.css'
 
@@ -11,25 +11,24 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
   const [loading, setLoading] = useState(false)
   const [mnemonic, setMnemonic] = useState('')
   const [error, setError] = useState('')
+  const [stats, setStats] = useState({ totalCards: 0, reviewedToday: 0 })
   const fileInputRef = useRef<HTMLInputElement>(null)
   const addCard = useCardStore((state) => state.addCard)
+  const getAllCards = useCardStore((state) => state.getAllCards)
 
-  const [stats, setStats] = useState({ totalCards: 0, reviewedToday: 0 })
-const getAllCards = useCardStore((state) => state.getAllCards)
-
-useEffect(() => {
-  const allCards = getAllCards()
-  const today = new Date().toDateString()
-  const reviewedToday = allCards.filter(
-    (card) =>
-      card.lastReviewedAt?.toDateString() === today
-  ).length
-  
-  setStats({
-    totalCards: allCards.length,
-    reviewedToday,
-  })
-}, [])
+  useEffect(() => {
+    const allCards = getAllCards()
+    const today = new Date().toDateString()
+    const reviewedToday = allCards.filter(
+      (card) =>
+        card.lastReviewedAt?.toDateString() === today
+    ).length
+    
+    setStats({
+      totalCards: allCards.length,
+      reviewedToday,
+    })
+  }, [getAllCards])
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -48,7 +47,7 @@ useEffect(() => {
   const handleGenerateMnemonic = async () => {
     if (!name) {
       setError('Please enter a name')
-      
+      return
     }
 
     if (!imageBase64) {
@@ -114,16 +113,13 @@ useEffect(() => {
     setImagePreview(null)
     setMnemonic('')
     setError('')
-    
-    // Show success message instead of auto-switching
     alert(`✅ ${name} added! Ready to review?`)
     onCardAdded?.()
   }
 
   return (
-    <direturn (
     <div className={styles.container}>
-     {stats.totalCards > 0 && (
+      {stats.totalCards > 0 && (
         <div className={styles.statsBar}>
           <div className={styles.statItem}>
             <span className={styles.statLabel}>Cards Added:</span>
@@ -135,13 +131,7 @@ useEffect(() => {
           </div>
         </div>
       )}
-          <div className={styles.statItem}>
-            <span className={styles.statLabel}>Reviewed Today:</span>
-            <span className={styles.statValue}>{stats.reviewedToday}</span>
-          </div>
-        </div>
-      )}
-      
+
       <div className={styles.card}>
         <h2 className={styles.title}>Add New Person</h2>
 
