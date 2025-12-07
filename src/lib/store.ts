@@ -18,10 +18,11 @@ export interface Card {
 
 interface CardStore {
   cards: Card[]
-  addCard: (
+ addCard: (
     name: string,
     imageUrl: string,
-    mnemonic: string
+    mnemonic: string,
+    imageBase64?: string
   ) => void
   reviewCard: (cardId: string, quality: number) => void
   deleteCard: (cardId: string) => void
