@@ -6,6 +6,7 @@ import styles from './AddCard.module.css'
 
 export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
   const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
   const [imageBase64, setImageBase64] = useState<string | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -50,8 +51,8 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
       return
     }
 
-    if (!imageBase64) {
-      setError("Please upload a photo")
+    if (!description) {
+      setError("Please enter a description")
       return
     }
 
@@ -59,27 +60,12 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
     setError('')
 
     try {
-      const analyzeResponse = await fetch('/api/analyze-image', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          imageBase64: imageBase64.split(',')[1],
-          mimeType: 'image/jpeg',
-        }),
-      })
-
-      if (!analyzeResponse.ok) {
-        throw new Error("Failed to analyze image")
-      }
-
-      const { description } = await analyzeResponse.json()
-
       const mnemonicResponse = await fetch('/api/generate-mnemonic', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
-          imageDescription: description,
+          description,
         }),
       })
 
@@ -102,13 +88,14 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
   }
 
   const handleAddCard = () => {
-    if (!name || !imageBase64 || !mnemonic) {
+    if (!name || !description || !mnemonic) {
       setError("Please fill in all fields")
       return
     }
 
-    addCard(name, imageBase64, mnemonic, imageBase64)
+    addCard(name, description, imageBase64 || '', mnemonic, imageBase64)
     setName('')
+    setDescription('')
     setImageBase64(null)
     setImagePreview(null)
     setMnemonic('')
@@ -143,14 +130,26 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-           placeholder="Enter person&apos;s name"
+            placeholder={"Enter person&apos;s name"}
             className={styles.input}
             disabled={loading}
           />
         </div>
 
         <div className={styles.field}>
-          <label className={styles.label}>Photo</label>
+          <label className={styles.label}>Description</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder={"E.g., Tall, gold tooth, tattoos, from Nottingham, works in IT..."}
+            className={styles.input}
+            rows={3}
+            disabled={loading}
+          />
+        </div>
+
+        <div className={styles.field}>
+          <label className={styles.label}>Photo (Optional)</label>
           <button
             onClick={() => fileInputRef.current?.click()}
             className={styles.uploadButton}
@@ -176,7 +175,7 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
 
         <button
           onClick={handleGenerateMnemonic}
-          disabled={loading || !name || !imageBase64}
+          disabled={loading || !name || !description}
           className={styles.generateButton}
         >
           {loading ? "⏳ Generating..." : "✨ Generate Memory Aid"}
