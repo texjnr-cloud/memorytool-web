@@ -4,6 +4,7 @@ import { SM2State, initializeSM2, calculateNextReview } from './sm2'
 export interface Card {
   id: string
   name: string
+  description: string
   imageUrl: string
   imageBase64?: string
   mnemonic: string
