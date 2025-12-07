@@ -10,9 +10,10 @@ export interface Card {
   sm2: SM2State
   createdAt: Date
   lastReviewedAt?: Date
-  reviews: {
+reviews: {
     date: Date
     quality: number
+    mnemonicHelpful?: boolean
   }[]
 }
 
