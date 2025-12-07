@@ -46,7 +46,7 @@ reviewCard: (cardId, quality, mnemonicHelpful) => {
         }
         return card
       }),
-    }))
+    })) 
     get().saveCardsToStorage()
   },
 
