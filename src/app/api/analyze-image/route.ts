@@ -30,7 +30,7 @@ console.log('API Key length:', apiKey?.length)
     const client = new Anthropic({ apiKey })
 
     const message = await client.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-opus-4-1',
       max_tokens: 200,
       messages: [
         {
