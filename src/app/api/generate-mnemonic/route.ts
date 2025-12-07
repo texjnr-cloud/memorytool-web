@@ -3,11 +3,18 @@ import Anthropic from '@anthropic-ai/sdk'
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, imageDescription } = await request.json()
+    const { name, description } = await request.json()
 
     if (!name) {
       return NextResponse.json(
         { error: 'Name is required' },
+        { status: 400 }
+      )
+    }
+
+    if (!description) {
+      return NextResponse.json(
+        { error: 'Description is required' },
         { status: 400 }
       )
     }
@@ -23,32 +30,22 @@ export async function POST(request: NextRequest) {
 
     const client = new Anthropic({ apiKey })
 
-const prompt = `Create a mnemonic for "${name}".
+    const prompt = `Generate a SHORT, memorable mnemonic to remember the name "${name}".
 
-${
-  imageDescription
-    ? `They have: ${imageDescription}`
-    : ''
-}
+Details: ${description}
 
-STRICT RULES - FOLLOW EXACTLY:
-1. Maximum 3 words only
-2. Pick the SINGLE most distinctive feature
-3. Use alliteration if possible (words starting with same sound)
-4. Make it silly or exaggerated
-5. Should take 1 second to say
+RULES:
+- Maximum 4 words
+- Use the MOST DISTINCTIVE detail from the description
+- Make it catchy and easy to repeat
+- Something you can say in 1 second and remember
 
-EXAMPLES (follow this format exactly):
-"Sally's shiny shoes"
-"Mike's mighty mustache"
-"Blake's bright blue"
-"Red Rachel's ribbon"
-"Big Ben's beard"
+Examples:
+"Jamie&apos;s Gold Tooth"
+"Sarah&apos;s Silver Shoes"
+"Blake&apos;s Bright Blue"
 
-Your response must be exactly 2-3 words maximum.
-Format: [Name]'s [adjective] [noun]
-
-Just the mnemonic, nothing else.`
+Just the mnemonic (4 words max), nothing else.`
 
     const message = await client.messages.create({
       model: 'claude-opus-4-1',
