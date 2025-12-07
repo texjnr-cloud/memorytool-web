@@ -16,7 +16,7 @@ export default function CardLibrary() {
   }, [getAllCards])
 
   const handleDelete = (id: string) => {
-    if (confirm('Delete this person?')) {
+    if (confirm("Delete this person?")) {
       deleteCard(id)
       setCards(cards.filter((c) => c.id !== id))
       setSelectedCard(null)
@@ -58,7 +58,7 @@ export default function CardLibrary() {
             key={card.id}
             onClick={() => setSelectedCard(card)}
             className={`${styles.cardThumb} ${
-              selectedCard?.id === card.id ? styles.cardThumbActive : ''
+              selectedCard?.id === card.id ? styles.cardThumbActive : ""
             }`}
           >
             {card.imageBase64 ? (
@@ -117,6 +117,13 @@ export default function CardLibrary() {
                   {selectedCard.sm2.easeFactor.toFixed(2)}
                 </p>
               </div>
+            </div>
+
+            <div className={styles.detailBox}>
+              <p className={styles.detailLabel}>Description:</p>
+              <p className={styles.detailMnemonic}>
+                {selectedCard.description}
+              </p>
             </div>
 
             <div className={styles.detailBox}>
