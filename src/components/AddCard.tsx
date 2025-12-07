@@ -14,6 +14,23 @@ export default function AddCard({ onCardAdded }: { onCardAdded?: () => void }) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const addCard = useCardStore((state) => state.addCard)
 
+  const [stats, setStats] = useState({ totalCards: 0, reviewedToday: 0 })
+const getAllCards = useCardStore((state) => state.getAllCards)
+
+useEffect(() => {
+  const allCards = getAllCards()
+  const today = new Date().toDateString()
+  const reviewedToday = allCards.filter(
+    (card) =>
+      card.lastReviewedAt?.toDateString() === today
+  ).length
+  
+  setStats({
+    totalCards: allCards.length,
+    reviewedToday,
+  })
+}, [])
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
