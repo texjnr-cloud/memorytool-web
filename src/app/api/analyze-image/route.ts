@@ -3,6 +3,10 @@ import Anthropic from '@anthropic-ai/sdk'
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('=== ANALYZE IMAGE API CALLED ===')
+    console.log('API Key env var:', process.env.ANTHROPIC_API_KEY ? 'EXISTS' : 'MISSING')
+    console.log('API Key length:', process.env.ANTHROPIC_API_KEY?.length)
+    
     const { imageBase64, mimeType } = await request.json()
 
     if (!imageBase64) {
